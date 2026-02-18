@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: html(title='Your Orders - E-SHOP', content=~{::section})}">
+
+<body>
+    <section>
+        <h2 style="margin-bottom: 2rem;">Order History</h2>
+
+        <div th:if="${param.success}"
+            style="background: #dcfce7; color: #166534; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+            Order placed successfully! Thank you for shopping.
+        </div>
+
+        <div th:if="${#lists.isEmpty(orders)}" style="text-align: center; padding: 4rem;">
+            <p style="font-size: 1.25rem; color: #64748b;">You haven't placed any orders yet.</p>
+        </div>
+
+        <div th:each="order : ${orders}"
+            style="background: white; border-radius: 0.75rem; box-shadow: var(--card-shadow); margin-bottom: 2rem; overflow: hidden;">
+            <div
+                style="background: #f8fafc; padding: 1rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span style="color: #64748b; font-size: 0.875rem;">ORDER PLACED</span>
+                    <div th:text="${#temporals.format(order.orderDate, 'dd MMM yyyy')}" style="font-weight: 600;"></div>
+                </div>
+                <div>
+                    <span style="color: #64748b; font-size: 0.875rem;">TOTAL</span>
+                    <div th:text="${'₹' + order.totalAmount}" style="font-weight: 600;"></div>
+                </div>
+                <div>
+                    <span style="color: #64748b; font-size: 0.875rem;">STATUS</span>
+                    <div th:text="${order.status}" style="font-weight: 600; color: #2563eb;"></div>
+                </div>
+            </div>
+
+            <div style="padding: 1.5rem;">
+                <div th:each="item : ${order.items}"
+                    style="display: flex; gap: 1.5rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f1f5f9;">
+                    <img th:src="${item.product.imagePath}"
+                        style="width: 80px; height: 80px; object-fit: cover; border-radius: 0.5rem;">
+                    <div>
+                        <h4 th:text="${item.product.name}" style="margin-bottom: 0.25rem;"></h4>
+                        <p style="color: #64748b; font-size: 0.875rem;" th:text="${'Quantity: ' + item.quantity}"></p>
+                        <p style="font-weight: 600; margin-top: 0.5rem;" th:text="${'₹' + item.price}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

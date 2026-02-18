@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(title='Home - E-SHOP', content=~{::section})}">
+
+<body>
+    <section>
+        <div
+            style="background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white; padding: 4rem 2rem; border-radius: 1rem; margin-bottom: 3rem; text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to E-SHOP</h1>
+            <p style="font-size: 1.25rem; opacity: 0.9;">Discover the best deals on electronics, fashion, and more!</p>
+            <a th:href="@{/products}" class="btn"
+                style="background: white; color: #2563eb; margin-top: 2rem; padding: 1rem 2rem; font-size: 1.1rem;">Shop
+                Now</a>
+        </div>
+
+        <h2 style="margin-bottom: 2rem;">Featured Products</h2>
+        <div class="product-grid">
+            <div class="product-card" th:each="product, iter : ${products}" th:if="${iter.index < 4}">
+                <img th:src="${product.imagePath != null ? product.imagePath : 'https://via.placeholder.com/300x200'}"
+                    class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title" th:text="${product.name}">Product Name</h3>
+                    <p class="product-price" th:text="${'₹' + product.price}">₹0.00</p>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <a th:href="@{/product-details(id=${product.id})}" class="btn btn-outline"
+                            style="flex: 1; text-align: center;">View</a>
+                        <form th:action="@{/cart/add}" method="post" style="flex: 1;">
+                            <input type="hidden" name="productId" th:value="${product.id}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

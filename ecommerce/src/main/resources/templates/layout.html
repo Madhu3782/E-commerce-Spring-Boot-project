@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">E-Commerce Shop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a th:href="@{/}" class="navbar-brand">E-SHOP</a>
+        <div class="nav-links">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/products}">Products</a>
+            <a th:href="@{/cart}">Cart</a>
+            <a th:href="@{/orders}" th:if="${session.user != null}">Orders</a>
+            <a th:href="@{/admin}" th:if="${session.user != null and session.user.role == 'ADMIN'}">Admin</a>
+            
+            <span th:if="${session.user == null}">
+                <a th:href="@{/login}" class="btn btn-outline">Login</a>
+                <a th:href="@{/register}" class="btn btn-primary">Register</a>
+            </span>
+            <span th:if="${session.user != null}">
+                <span th:text="${'Welcome, ' + session.user.name}"></span>
+                <a th:href="@{/logout}" class="btn btn-outline">Logout</a>
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div th:replace="${content}"></div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; margin-top: 4rem; color: #64748b;">
+        <p>&copy; 2026 E-SHOP Project. All rights reserved.</p>
+    </footer>
+</body>
+</html>

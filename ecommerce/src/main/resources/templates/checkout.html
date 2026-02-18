@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: html(title='Checkout - E-SHOP', content=~{::section})}">
+
+<body>
+    <section>
+        <h2 style="margin-bottom: 2rem;">Checkout</h2>
+
+        <div
+            style="max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--card-shadow);">
+            <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
+
+            <!-- In a full app, you'd pass the cart items here again -->
+            <p style="color: #64748b; margin-bottom: 2rem;">Please confirm your order details before proceeding.</p>
+
+            <form th:action="@{/place-order}" method="post">
+                <div class="form-group">
+                    <label>Shipping Address</label>
+                    <textarea class="form-control" rows="3" required placeholder="Enter full address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div style="padding: 1rem; border: 1px solid #cbd5e1; border-radius: 0.5rem;">
+                        <input type="radio" checked> Cash on Delivery
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 1rem;">
+                    <button type="submit" class="btn btn-primary"
+                        style="width: 100%; padding: 1rem; font-size: 1.1rem;">Place Order</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>
