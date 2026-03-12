@@ -82,4 +82,4 @@ A full-featured, end-to-end e-commerce platform built with **Java**, **Spring Bo
 *   `src/main/resources/data.sql`: Initial sample data and categories.
 
 ---
-Developed with ❤️ by Madhu
+Developed by Madhu Uppar
